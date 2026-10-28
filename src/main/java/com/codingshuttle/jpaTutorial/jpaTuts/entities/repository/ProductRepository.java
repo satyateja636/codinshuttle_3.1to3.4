@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -33,4 +35,14 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	
 	@Query("SELECT p FROM Product p WHERE p.title = ?1 AND p.price = ?2")
 	Optional<Product> findByTitleAndPriceQueryMethod(String title, BigDecimal price);
+	
+	
+	List<Product> findByTitleOrderByPrice(String title);
+	
+	List<Product> findByOrderByPrice();
+	
+	List<Product> findBy(Sort sort);
+	
+	List<Product> findByTitleContainingIgnoreCase(String title, Pageable pageable);
+
 }
